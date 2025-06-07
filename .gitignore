@@ -1,0 +1,61 @@
+# Ignore compiled executable files
+*.ex4
+*.ex5
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore log files
+*.log
+
+# DB
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Ignore cache and generated data
+*.cache
+*.dat
+*.bin
+*.xml
+
+.idea/
+
+*.iml
+
+# Ignore platform-specific folders
+/Tester/Cache/
+/Tester/Logs/
+/Tester/History/
+/MQL5/Profiles/
+/MQL5/Logs/
+/Profiles/
+
+**/Scripts/
+**/Logs/
+**/Libraries/
+**/Indicators/
+
+# Ignore backup and autosave files
+*.bak
+*.old
+*.~*
+
+# Ignore IDE/project-specific files
+*.project
+*.workspace
+
+# Ignore hidden files and folders
+.DS_Store
+Thumbs.db
+*.swp
+
+# Ignore other unnecessary files
+*.mqh~
+*.mq4~
+*.ex4~
+*.ex5~
