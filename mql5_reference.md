@@ -5,6 +5,9 @@ This document provides a comprehensive collection of MQL5 code examples and patt
 ## Table of Contents
 - [Basic Syntax and Structure](#basic-syntax-and-structure)
 - [Data Types and Variables](#data-types-and-variables)
+    - [Primitive Types](#primitive-types)
+    - [Variable Declarations](#variable-declarations)
+    - [Constants and Enumerations](#constants-and-enumerations)
 - [Functions](#functions)
 - [Arrays and Collections](#arrays-and-collections)
 - [Object-Oriented Programming](#object-oriented-programming)
@@ -38,7 +41,7 @@ void OnStart() {
 ### Basic Function Declaration
 ```mql5
 // Simple function to add two numbers
-double AddNumbers(double a, double b) {
+double addNumbers(double a, double b) {
     return a + b;
 }
 
@@ -50,6 +53,22 @@ void OnTick() {
 ```
 
 ## Data Types and Variables
+
+### Primitive Types
+```mql5
+// MQL5 primitive data types
+char   charVar = 'A';     // 8-bit signed integer (-128 to 127)
+uchar  ucharVar = 255;    // 8-bit unsigned integer (0 to 255)
+short  shortVar = -12345; // 16-bit signed integer (-32768 to 32767)
+ushort ushortVar = 54321; // 16-bit unsigned integer (0 to 65535)
+int    intVar = -123456;  // 32-bit signed integer (-2147483648 to 2147483647)
+uint   uintVar = 1234567; // 32-bit unsigned integer (0 to 4294967295)
+long   longVar = -1234567890; // 64-bit signed integer
+ulong  ulongVar = 1234567890; // 64-bit unsigned integer
+float  floatVar = 3.14f;  // 32-bit floating point (approximate precision)
+double doubleVar = 3.1415926535; // 64-bit floating point (higher precision)
+bool   boolVar = true;    // Boolean value (true or false)
+```
 
 ### Variable Declarations
 ```mql5
@@ -125,7 +144,7 @@ void OnStart() {
 ### Array Operations
 ```mql5
 // Find highest value in array
-double FindHighestPrice(double[] prices) {
+double findHighestPrice(double[] prices) {
     double highest = prices[0];
     for(int i = 1; i < ArraySize(prices); i++) {
         if(prices[i] > highest)
@@ -140,39 +159,39 @@ double FindHighestPrice(double[] prices) {
 ### Class Definition
 ```mql5
 // Trading strategy class
-class CTradingStrategy {
+class TradingStrategy {
 private:
     string strategyName;
     double lotSize;
 
 public:
     // Constructor
-    CTradingStrategy(string name, double lot) : strategyName(name), lotSize(lot) {}
+    TradingStrategy(string name, double lot) : strategyName(name), lotSize(lot) {}
     
     // Destructor
-    ~CTradingStrategy() {}
+    ~TradingStrategy() {}
     
     // Method to get strategy name
-    string GetName() { return strategyName; }
+    string getName() { return strategyName; }
     
     // Virtual method for strategy execution
-    virtual bool Execute() { return false; }
+    virtual bool execute() { return false; }
 };
 ```
 
 ### Class Inheritance
 ```mql5
 // Moving Average strategy class derived from base strategy
-class CMovingAverageStrategy : public CTradingStrategy {
+class MovingAverageStrategy : public TradingStrategy {
 private:
     int maPeriod;
     double lastMAValue;
 
 public:
-    CMovingAverageStrategy(string name, double lot, int period) 
-        : CTradingStrategy(name, lot), maPeriod(period), lastMAValue(0) {}
+    MovingAverageStrategy(string name, double lot, int period) 
+        : TradingStrategy(name, lot), maPeriod(period), lastMAValue(0) {}
         
-    virtual bool Execute() {
+    virtual bool execute() {
         // Simple MA calculation and trading logic
         double currentMA = iMA(_Symbol, PERIOD_CURRENT, maPeriod, 0, MODE_SMA, PRICE_CLOSE, 0);
         // Implement trading logic here
@@ -186,16 +205,16 @@ public:
 ### Memory Management with Objects
 ```mql5
 // Using objects for resource management
-class CTradeManager {
+class TradeManager {
 private:
     CTrade *trade;
 
 public:
-    CTradeManager() {
+    TradeManager() {
         trade = new CTrade();
     }
     
-    ~CTradeManager() {
+    ~TradeManager() {
         delete trade;
     }
 };
@@ -206,7 +225,7 @@ public:
 ### Market Order Execution
 ```mql5
 // Place a buy order
-bool PlaceBuyOrder(string symbol, double volume, double price, double sl, double tp, string comment) {
+bool placeBuyOrder(string symbol, double volume, double price, double sl, double tp, string comment) {
     MqlTradeRequest request= {0};
     MqlTradeResult result= {0};
     
@@ -226,7 +245,7 @@ bool PlaceBuyOrder(string symbol, double volume, double price, double sl, double
 ### Position Information
 ```mql5
 // Get position profit
-bool GetPositionProfit(ulong ticket, double &profit) {
+bool getPositionProfit(ulong ticket, double profit) {
     if(PositionSelectByTicket(ticket)) {
         profit = PositionGetDouble(POSITION_PROFIT);
         return true;
@@ -275,7 +294,7 @@ void OnTick() {
 ### Checking Function Results
 ```mql5
 // Check order execution result
-bool CheckOrderResult(MqlTradeResult &result) {
+bool checkOrderResult(MqlTradeResult result) {
     if(result.retcode == TRADE_RETCODE_DONE) {
         Print("Order executed successfully, ticket: ", result.order);
         return true;
@@ -291,7 +310,7 @@ bool CheckOrderResult(MqlTradeResult &result) {
 ### Writing to File
 ```mql5
 // Write data to CSV file
-bool WriteToCsv(string filename, string data) {
+bool writeToCsv(string filename, string data) {
     int handle = FileOpen(filename, FILE_WRITE|FILE_CSV|FILE_COMMON);
     if(handle == INVALID_HANDLE) {
         Print("Failed to open file, error: ", GetLastError());
@@ -307,7 +326,7 @@ bool WriteToCsv(string filename, string data) {
 ### Reading from File
 ```mql5
 // Read data from CSV file
-bool ReadFromCsv(string filename, string &data) {
+bool readFromCsv(string filename, string data) {
     int handle = FileOpen(filename, FILE_READ|FILE_CSV|FILE_COMMON);
     if(handle == INVALID_HANDLE) {
         Print("Failed to open file, error: ", GetLastError());
